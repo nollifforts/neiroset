@@ -4,7 +4,7 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 print('Загрузка...')
 tokenizer = AutoTokenizer.from_pretrained('gpt2')
-model = AutoModelForCausalLM.from_pretrained('gpt2').cuda()
+model = AutoModelForCausalLM.from_pretrained('gpt2').cpu()
 tokenizer.add_special_tokens({'bos_token': '<s>', 'eos_token': '</s>', 'pad_token': '<pad>'})
 print('Загрузка завершена')
 
@@ -14,7 +14,7 @@ bot = telebot.TeleBot(token)
 def repeat_all_messages(message):
 	if 'Гриша,' in message.text:
 		prompt = "- {}\n-".format(message.text) # Название функции не играет никакой роли
-		encoded_prompt = tokenizer.encode(prompt, return_tensors="pt").cuda()
+		encoded_prompt = tokenizer.encode(prompt, return_tensors="pt").cpu()
 
 		out = model.generate(encoded_prompt, max_length=200, do_sample=True, top_k=35, top_p=0.95, temperature=0.8,
 								num_return_sequences=1, eos_token_id=2, pad_token_id=0)
