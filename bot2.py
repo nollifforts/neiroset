@@ -1,10 +1,10 @@
 import telebot
 token = '6935918318:AAGXB5Mdfcl9jHGRHAI66hO61foGhv8FQyA'
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelWithLMHead
 print('Загрузка...')
 tokenizer = AutoTokenizer.from_pretrained('gpt2')
-model = AutoModelForCausalLM.from_pretrained('gpt2').cpu()
+model = AutoModelWithLMHead.from_pretrained('gpt2').cpu()
 tokenizer.add_special_tokens({'bos_token': '<s>', 'eos_token': '</s>', 'pad_token': '<pad>'})
 print('Загрузка завершена')
 
